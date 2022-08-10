@@ -12,7 +12,7 @@ logging:
       springframework:
         http:
           client: INFO
-    root: TRACE
+    root: INFO
 soa:
   event:
     redis:
