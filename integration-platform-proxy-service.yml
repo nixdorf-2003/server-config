@@ -1,0 +1,56 @@
+application:
+  environment: dev-next
+amazon:
+  aws:
+    region: us-east-2
+app:
+  server:
+    disableAuth: true
+logging:
+  level:
+    org:
+      springframework:
+        http:
+          client: INFO
+soa:
+  event:
+    redis:
+      cluster:
+        nodes: clustercfg.amwell-dev-soa-events.25kjau.use2.cache.amazonaws.com:6379
+      password: ncpkyp4zh2d6fga9
+      ssl: true
+      consumer-group: ipp-local-group
+redis:
+  eventName:
+    scan:
+      pattern: event-visit-match-found
+  eventStreamDbConfig:
+    enabled: true
+server:
+  port: 8081   
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    username: postgres
+    hikari:
+      connectionTimeout: '20000'
+      maximumPoolSize: '5'
+    url: jdbc:postgresql://localhost:5432/postgres
+    platform: postgres
+    password: postgres
+
+  jpa:
+    show-sql: false
+  rabbitmq:
+    addresses: "amqp://localhost:5672"
+    password: "guest"
+    username: guest
+amwell:
+  services:
+    tenant: https://dev-next.tenant.dev.amwell.systems
+
+rhapsody:
+  base-url: https://rhapsody-devnext.amwell.systems:15998/pre_visit_summary_data
+hibernate:
+  dialect: org.hibernate.dialect.PostgreSQLDialect
