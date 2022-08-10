@@ -11,7 +11,8 @@ logging:
     org:
       springframework:
         http:
-          client: DEBUG
+          client: INFO
+    root: DEBUG
 soa:
   event:
     redis:
