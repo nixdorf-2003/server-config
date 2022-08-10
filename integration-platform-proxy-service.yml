@@ -54,8 +54,3 @@ rhapsody:
   base-url: https://rhapsody-devnext.amwell.systems:15998/pre_visit_summary_data
 hibernate:
   dialect: org.hibernate.dialect.PostgreSQLDialect
-management:
-  endpoints:
-    web:
-      exposure:
-        include: *
