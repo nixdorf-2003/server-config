@@ -1,0 +1,105 @@
+application:
+  name: tod-messages-bridge
+
+app:
+  server:
+    disableAuth: true
+
+connect:
+  amazon-mq:
+    ssl:
+      trust-store:
+        password: changeit
+        file-path: ${JAVA_HOME}/lib/security/cacerts
+spring:
+  profiles:
+    active:
+      - dev
+  application:
+    name: tod-messages-bridge
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    username: postgres
+    hikari:
+      connectionTimeout: '20000'
+      maximumPoolSize: '5'
+    url: jdbc:postgresql://localhost:5432/todMessagesBridge
+    platform: postgres
+    password: postgres
+  rabbitmq:
+    addresses: "amqp://localhost:5672"
+    password: "guest"
+    username: guest
+amazon:
+  aws:
+    region: ${application.region}
+logging:
+  pattern:
+    console: '%d %p [%t] %c{1} ${spring.application.name} : %m%n'
+  level:
+    com:
+      americanwell: INFO
+    org:
+      springframework:
+        security: INFO
+    root: INFO
+platform:
+  api:
+    description: Service for consuming messages from queues on amazonMQ and sending them to redis stream
+    resourceScanPath: /api/.*
+    title: Tod Messages Bridge
+    version: 1.0.0
+soa:
+  event:
+    redis:
+      cluster:
+        nodes: clustercfg.amwell-dev-soa-events.25kjau.use2.cache.amazonaws.com:6379
+      password: ncpkyp4zh2d6fga9
+      ssl: true
+      consumerGroup: group-service-tod-messages-bridge-local
+
+amazon-mq:
+  broker-url: ssl://b-f45031f7-4257-477b-b191-9298a2a3d99e-1.mq.us-east-2.amazonaws.com:61617
+  user: admin
+  password: simplepassword
+  useAsyncSend: true
+  maximumRedeliveries: 5
+
+# Generic JMS Containers
+jms-endpoints:
+  items[0]:
+    pubSubDomain: false
+    jmsAddress: "Consumer.TOD-messages-bridge.VirtualTopic.TOD.patientEnteredWaitingRoom.event"
+    sessionAcknowledgeMode: 2
+    deliveryMode: 2
+    subscriptionDurable: false
+    subscriptionShared: false
+  items[1]:
+    pubSubDomain: false
+    jmsAddress: "Consumer.TOD-messages-bridge.VirtualTopic.TOD.patientLeftWaitingRoom.event"
+    sessionAcknowledgeMode: 2
+    deliveryMode: 2
+    subscriptionDurable: false
+    subscriptionShared: false
+  items[2]:
+    pubSubDomain: false
+    jmsAddress: "Consumer.TOD-messages-bridge.VirtualTopic.TOD.virtualProviderAvailable.event"
+    sessionAcknowledgeMode: 2
+    deliveryMode: 2
+    subscriptionDurable: false
+    subscriptionShared: false
+  items[3]:
+    pubSubDomain: false
+    jmsAddress: "Consumer.TOD-messages-bridge.VirtualTopic.TOD.virtualProviderOffline.event"
+    sessionAcknowledgeMode: 2
+    deliveryMode: 2
+    subscriptionDurable: false
+    subscriptionShared: false
+
+
+redis:
+  event:
+    name:
+      scan:
+        pattern: event-video-service-participant_joined,event-video-service-participant_left
