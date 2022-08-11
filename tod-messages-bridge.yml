@@ -39,10 +39,10 @@ logging:
     console: '%d %p [%t] %c{1} ${spring.application.name} : %m%n'
   level:
     com:
-      americanwell: INFO
+      americanwell: ERROR
     org:
       springframework:
-        security: INFO
+        security: ERROR
     root: ERROR
 platform:
   api:
