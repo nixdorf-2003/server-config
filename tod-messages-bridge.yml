@@ -62,7 +62,7 @@ soa:
 amazon-mq:
   broker-url: ssl://b-f45031f7-4257-477b-b191-9298a2a3d99e-1.mq.us-east-2.amazonaws.com:61617
   user: admin
-  password: simplepassword
+  password: simplepassword-0
   useAsyncSend: true
   maximumRedeliveries: 5
 
