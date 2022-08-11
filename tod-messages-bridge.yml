@@ -39,11 +39,11 @@ logging:
     console: '%d %p [%t] %c{1} ${spring.application.name} : %m%n'
   level:
     com:
-      americanwell: ERROR
+      americanwell: INFO
     org:
       springframework:
-        security: ERROR
-    root: ERROR
+        security: INFO
+    root: INFO
 platform:
   api:
     description: Service for consuming messages from queues on amazonMQ and sending them to redis stream
