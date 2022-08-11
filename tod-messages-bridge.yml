@@ -43,7 +43,7 @@ logging:
     org:
       springframework:
         security: INFO
-    root: TRACE
+    root: DEBUG
 platform:
   api:
     description: Service for consuming messages from queues on amazonMQ and sending them to redis stream
